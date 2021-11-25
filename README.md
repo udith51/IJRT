@@ -1,1 +1,3 @@
 # IJRT
+## Background
+### Idea
