@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-image: url('https://images.unsplash.com/photo-1595123550441-d377e017de6a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1906&q=80');
+  background-repeat: no-repeat;
+}
+
+.card {
+  margin: 160px 700px auto 700px;
+  text-align: center;
+  padding: 50px;
+  padding-bottom: 80px;
+  background-color: rgb(255,255,255,0.7);
+  border-radius: 20px;
+}
+
+h2, .admin, .police, .judge {
+  padding: 20px;
+}
+
+.admin:hover, .police:hover, .judge:hover {
+  padding: 20px;
+  border: 1px solid #7267CB;
+  background-color: #7267CB;
+  border-radius: 20px;
+}
+
+.admin, .police, .judge {
+  border: 1px solid #6E3CBC;
+  background-color: #6E3CBC;
+  border-radius: 20px;
+  color: white;
+}
+
+.judge {
+  margin: 20px 0px;
+}
+a{
+  text-decoration: none;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #000957;
+}
