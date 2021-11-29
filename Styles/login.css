@@ -16,10 +16,7 @@ body{
   margin: 150px auto auto auto;
 
  }
- .content1{
-  margin: 150px auto auto auto;
 
- }
  button{
    padding: 20px 50px;
    background-color: #6E3CBC;
@@ -43,6 +40,9 @@ body{
   align-items: center;
   font-size: 1rem;
   background-color: #7267CB;
+ }
+ .child11{
+   margin: 150px 108px auto 108px;
  }
 
  .action{
