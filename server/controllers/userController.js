@@ -126,3 +126,22 @@ exports.update = (req, res) => {
         });
     });
 }
+
+exports.delete = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err)
+            throw err;
+        console.log('Connected to ID: ' + connection.threadId);
+
+        connection.query('DELETE FROM USER WHERE id = ?', [req.params.id], (err, rows) => {
+            connection.release();
+            if (!err) {
+                res.redirect('/');
+                console.log('Here');
+            } else {
+                console.log(err);
+            }
+            console.log(rows);
+        });
+    });
+}
