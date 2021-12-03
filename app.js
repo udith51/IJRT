@@ -35,26 +35,8 @@ pool.getConnection((err, connection) => {
 })
 
 
-
-
-
-//Router
-app.get('', (req, res) => {//home page
-    res.render('home');
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
+const routes = require('./server/routes/user');
+app.use('/', routes);
 
 
 app.listen(port, () => {
