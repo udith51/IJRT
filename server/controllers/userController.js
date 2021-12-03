@@ -9,7 +9,7 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME
 });
 
-//View
+
 exports.view = (req, res) => {
     pool.getConnection((err, connection) => {
         if (err)
@@ -40,6 +40,31 @@ exports.find = (req, res) => {
             connection.release();
             if (!err) {
                 res.render('home', { rows });
+                console.log('Here');
+            } else {
+                console.log(err);
+            }
+            console.log(rows);
+        });
+    });
+}
+
+exports.form = (req, res) => {
+    res.render('add-user');
+}
+
+exports.create = (req, res) => {
+    const { first_name, last_name, email, phone, comments } = req.body;
+
+    pool.getConnection((err, connection) => {
+        if (err)
+            throw err;
+        console.log('Connected to ID: ' + connection.threadId);
+
+        connection.query('INSERT INTO USER SET first_name = ?, last_name = ? , email = ? , phone= ? ,comments = ?', [first_name, last_name, email, phone, comments], (err, rows) => {
+            connection.release();
+            if (!err) {
+                res.render('add-user');
                 console.log('Here');
             } else {
                 console.log(err);
