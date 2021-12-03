@@ -64,8 +64,61 @@ exports.create = (req, res) => {
         connection.query('INSERT INTO USER SET first_name = ?, last_name = ? , email = ? , phone= ? ,comments = ?', [first_name, last_name, email, phone, comments], (err, rows) => {
             connection.release();
             if (!err) {
-                res.render('add-user');
+                res.render('add-user', { alert: "User added successfully!" });
                 console.log('Here');
+            } else {
+                console.log(err);
+            }
+            console.log(rows);
+        });
+    });
+}
+
+exports.edit = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err)
+            throw err;
+        console.log('Connected to ID: ' + connection.threadId);
+
+        connection.query('SELECT * FROM USER WHERE id = ?', [req.params.id], (err, rows) => {
+            connection.release();
+            if (!err) {
+                res.render('edit-user', { rows });
+                console.log('Here');
+            } else {
+                console.log(err);
+            }
+            console.log(rows);
+        });
+    });
+}
+
+exports.update = (req, res) => {
+    const { first_name, last_name, email, phone, comments } = req.body;
+
+    pool.getConnection((err, connection) => {
+        if (err)
+            throw err;
+        console.log('Connected to ID: ' + connection.threadId);
+
+        connection.query('UPDATE USER SET first_name = ?, last_name=?, email = ? , phone= ? ,comments = ? WHERE id = ?', [first_name, last_name, email, phone, comments, req.params.id], (err, rows) => {
+            connection.release();
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err)
+                        throw err;
+                    console.log('Connected to ID: ' + connection.threadId);
+                    connection.query('SELECT * FROM USER WHERE id = ?', [req.params.id], (err, rows) => {
+                        connection.release();
+                        if (!err) {
+                            res.render('edit-user', { rows, alert: "User details updated successfully!" });
+                            console.log('Here');
+                        } else {
+                            console.log(err);
+                        }
+                        console.log(rows);
+                    });
+                });
             } else {
                 console.log(err);
             }
