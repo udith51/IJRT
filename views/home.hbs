@@ -11,13 +11,13 @@
     </thead>
     <tbody>
 
-        {{!-- {{#each rows}} --}}
+        {{#each rows}}
         <tr>
-            <th scope="row">1</th>
-            <td>Devika</td>
-            <td>Singhal</td>
-            <td>devrya@gmail.com</td>
-            <td>9338378922</td>
+            <th scope="row">{{this.id}}</th>
+            <td>{{this.first_name}}</td>
+            <td>{{this.last_name}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.phone}}</td>
             <td class="text-end">
                 <a href="#" type="button" class="btn btn-light btn-small"><i class="bi bi-eye"></i>
                     View</a>
@@ -27,7 +27,7 @@
                     Delete</a>
             </td>
         </tr>
-        {{!-- {{/each}} --}}
+        {{/each}}
 
     </tbody>
 </table>
