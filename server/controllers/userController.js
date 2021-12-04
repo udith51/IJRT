@@ -24,7 +24,7 @@ exports.view = (req, res) => {
             } else {
                 console.log(err);
             }
-            console.log(rows);
+            // console.log(rows);
         });
     });
 }
@@ -69,7 +69,7 @@ exports.create = (req, res) => {
             } else {
                 console.log(err);
             }
-            console.log(rows);
+            // console.log(rows);
         });
     });
 }
@@ -137,6 +137,25 @@ exports.delete = (req, res) => {
             connection.release();
             if (!err) {
                 res.redirect('/');
+                console.log('Here');
+            } else {
+                console.log(err);
+            }
+            console.log(rows);
+        });
+    });
+}
+
+exports.viewUser = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err)
+            throw err;
+        console.log('Connected to ID: ' + connection.threadId);
+
+        connection.query('SELECT * FROM USER WHERE id = ?', [req.params.id], (err, rows) => {
+            connection.release();
+            if (!err) {
+                res.render('view-user', { rows });
                 console.log('Here');
             } else {
                 console.log(err);
