@@ -10,6 +10,10 @@ const pool = mysql.createPool({
 });
 
 
+exports.first = (req, res) => {
+    res.render('first');
+}
+
 exports.view = (req, res) => {
     pool.getConnection((err, connection) => {
         if (err)
@@ -19,12 +23,11 @@ exports.view = (req, res) => {
         connection.query('SELECT * FROM USER', (err, rows) => {
             connection.release();
             if (!err) {
-                res.render('home', { rows });
+                res.render('homePris', { rows });
                 console.log('Here');
             } else {
                 console.log(err);
             }
-            // console.log(rows);
         });
     });
 }
@@ -39,18 +42,17 @@ exports.find = (req, res) => {
         connection.query('SELECT * FROM USER WHERE first_name LIKE ? OR last_name LIKE ?', ['%' + searchBody + '%', '%' + searchBody + '%'], (err, rows) => {
             connection.release();
             if (!err) {
-                res.render('home', { rows });
+                res.render('homePris', { rows });
                 console.log('Here');
             } else {
                 console.log(err);
             }
-            console.log(rows);
         });
     });
 }
 
 exports.form = (req, res) => {
-    res.render('add-user');
+    res.render('addPris');
 }
 
 exports.create = (req, res) => {
@@ -64,7 +66,7 @@ exports.create = (req, res) => {
         connection.query('INSERT INTO USER SET first_name = ?, last_name = ? , email = ? , phone= ? ,comments = ?', [first_name, last_name, email, phone, comments], (err, rows) => {
             connection.release();
             if (!err) {
-                res.render('add-user', { alert: "User added successfully!" });
+                res.render('addPris', { alert: "User added successfully!" });
                 console.log('Here');
             } else {
                 console.log(err);
@@ -83,7 +85,7 @@ exports.edit = (req, res) => {
         connection.query('SELECT * FROM USER WHERE id = ?', [req.params.id], (err, rows) => {
             connection.release();
             if (!err) {
-                res.render('edit-user', { rows });
+                res.render('editPris', { rows });
                 console.log('Here');
             } else {
                 console.log(err);
@@ -111,7 +113,7 @@ exports.update = (req, res) => {
                     connection.query('SELECT * FROM USER WHERE id = ?', [req.params.id], (err, rows) => {
                         connection.release();
                         if (!err) {
-                            res.render('edit-user', { rows, alert: "User details updated successfully!" });
+                            res.render('editPris', { rows, alert: "Prisoner details updated successfully!" });
                             console.log('Here');
                         } else {
                             console.log(err);
@@ -146,7 +148,7 @@ exports.delete = (req, res) => {
     });
 }
 
-exports.viewUser = (req, res) => {
+exports.viewPris = (req, res) => {
     pool.getConnection((err, connection) => {
         if (err)
             throw err;
@@ -155,7 +157,7 @@ exports.viewUser = (req, res) => {
         connection.query('SELECT * FROM USER WHERE id = ?', [req.params.id], (err, rows) => {
             connection.release();
             if (!err) {
-                res.render('view-user', { rows });
+                res.render('viewPris', { rows });
                 console.log('Here');
             } else {
                 console.log(err);
