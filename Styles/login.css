@@ -42,7 +42,7 @@ body{
   background-color: #7267CB;
  }
  .child11{
-   margin: 150px 108px auto 108px;
+   margin: 150px auto auto auto;
  }
 
  .action{
@@ -74,7 +74,7 @@ input{
   border: 1px solid #6E3CBC;
   border-radius: 8px;
   font-size: 0.8rem;
-  
+
 }
 ul{
   list-style-type: none;
