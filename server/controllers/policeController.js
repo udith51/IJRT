@@ -21,10 +21,10 @@ exports.view = (req, res) => {
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('SELECT * FROM CRIMINAL', (err, rows) => {
+        connection.query('SELECT * FROM POLICE', (err, rows) => {
             connection.release();
             if (!err) {
-                res.render('homePris', { rows });
+                res.render('homePol', { rows });
                 console.log('Here');
             } else {
                 console.log(err);
@@ -43,7 +43,7 @@ exports.find = (req, res) => {
         connection.query('SELECT * FROM CRIMINAL WHERE fname LIKE ? OR lname LIKE ?', ['%' + searchBody + '%', '%' + searchBody + '%'], (err, rows) => {
             connection.release();
             if (!err) {
-                res.render('homePris', { rows });
+                res.render('homePol', { rows });
                 console.log('Here');
             } else {
                 console.log(err);
@@ -53,7 +53,7 @@ exports.find = (req, res) => {
 }
 
 exports.form = (req, res) => {
-    res.render('addPris');
+    res.render('addPol');
 }
 
 exports.create = (req, res) => {
@@ -67,7 +67,7 @@ exports.create = (req, res) => {
         connection.query('INSERT INTO CRIMINAL SET fname = ?, lname = ? , sex = ? , dob= ? ,crid = ?, prid =?, arrested_on=?, current_status=?', [fname, lname, sex, dob, crid, pid, arrested_on, current_status], (err, rows) => {
             connection.release();
             if (!err) {
-                res.render('addPris', { alert: "User added successfully!" });
+                res.render('addPol', { alert: "Police Officer added successfully!" });
                 console.log('Here');
             } else {
                 console.log(err);
@@ -86,7 +86,7 @@ exports.edit = (req, res) => {
         connection.query('SELECT * FROM CRIMINAL WHERE crid = ?', [req.params.id], (err, rows) => {
             connection.release();
             if (!err) {
-                res.render('editPris', { rows });
+                res.render('editPol', { rows });
                 console.log('Here');
             } else {
                 console.log(err);
@@ -114,7 +114,7 @@ exports.update = (req, res) => {
                     connection.query('SELECT * FROM CRIMINAL WHERE crid = ?', [req.params.id], (err, rows) => {
                         connection.release();
                         if (!err) {
-                            res.render('editPris', { rows, alert: "Prisoner details updated successfully!" });
+                            res.render('editPol', { rows, alert: "Police Officers details updated successfully!" });
                             console.log('Here');
                         } else {
                             console.log(err);
@@ -139,7 +139,7 @@ exports.delete = (req, res) => {
         connection.query('DELETE FROM CRIMINAL WHERE crid = ?', [req.params.id], (err, rows) => {
             connection.release();
             if (!err) {
-                res.redirect('/homePris');
+                res.redirect('/homePol');
                 console.log('Here');
             } else {
                 console.log(err);
@@ -149,7 +149,7 @@ exports.delete = (req, res) => {
     });
 }
 
-exports.viewPris = (req, res) => {
+exports.viewPol = (req, res) => {
     pool.getConnection((err, connection) => {
         if (err)
             throw err;
@@ -158,7 +158,7 @@ exports.viewPris = (req, res) => {
         connection.query('SELECT * FROM CRIMINAL WHERE crid = ?; SELECT arrested_for FROM CRIMINAL_REASON WHERE crid = ?', [req.params.id, req.params.id], (err, rows, fields) => {
             connection.release();
             if (!err) {
-                res.render('viewPris', { rows });
+                res.render('viewPol', { rows });
                 console.log('Here');
             } else {
                 console.log(err);
@@ -168,12 +168,5 @@ exports.viewPris = (req, res) => {
             console.log(rows[1]);
             // console.log(RowDataPacket[0]);
         });
-        // connection.query('SELECT 1; SELECT 2', function (error, results, fields) {
-        //     if (error) throw error;
-        //     // `results` is an array with one element for every statement in the query:
-        //     console.log(results[0]); // [{1: 1}]
-        //     console.log(results[1]); // [{2: 2}]
-        // });
-
     });
 }

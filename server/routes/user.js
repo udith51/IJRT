@@ -1,16 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/userController')
+const prisionerController = require('../controllers/prisionerController')
+// const policeController = require('../controllers/policeController')
 
-router.get('/', userController.first);
-router.get('/homePris', userController.view);
-router.post('/homePris', userController.find);
-router.get('/addPris', userController.form);
-router.post('/addPris', userController.create);
-router.get('/editPris/:id', userController.edit);
-router.post('/editPris/:id', userController.update);
-router.get('/viewPris/:id', userController.viewPris);
-router.get('/:id', userController.delete);
+router.get('/', prisionerController.first);
+router.get('/homePris', prisionerController.view);
+router.post('/homePris', prisionerController.find);
+router.get('/addPris', prisionerController.form);
+router.post('/addPris', prisionerController.create);
+router.get('/editPris/:id', prisionerController.edit);
+router.post('/editPris/:id', prisionerController.update);
+router.get('/viewPris/:id', prisionerController.viewPris);
+router.get('/:id', prisionerController.delete);
 
-
+// router.get('/', policeController.first);
+// router.get('/homePol', policeController.view);
+// router.post('/homePol', policeController.find);
+// router.get('/addPol', policeController.form);
+// router.post('/addPol', policeController.create);
+// router.get('/editPol/:id', policeController.edit);
+// router.post('/editPol/:id', policeController.update);
+// router.get('/viewPol/:id', policeController.viewPris);
+// router.get('/:id', policeController.delete);
 module.exports = router;
