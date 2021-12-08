@@ -9,8 +9,8 @@ router.get('/addPris', userController.form);
 router.post('/addPris', userController.create);
 router.get('/editPris/:id', userController.edit);
 router.post('/editPris/:id', userController.update);
-router.get('/viewPris/:id', userController.viewUser);
-router.get('pris/:id', userController.delete);
+router.get('/viewPris/:id', userController.viewPris);
+router.get('/:id', userController.delete);
 
 
 module.exports = router;

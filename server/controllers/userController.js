@@ -6,7 +6,8 @@ const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
-    database: process.env.DB_NAME
+    database: process.env.DB_NAME,
+    multipleStatements: true
 });
 
 
@@ -20,7 +21,7 @@ exports.view = (req, res) => {
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('SELECT * FROM USER', (err, rows) => {
+        connection.query('SELECT * FROM CRIMINAL', (err, rows) => {
             connection.release();
             if (!err) {
                 res.render('homePris', { rows });
@@ -39,7 +40,7 @@ exports.find = (req, res) => {
         console.log('Connected to ID: ' + connection.threadId);
 
         let searchBody = req.body.search;
-        connection.query('SELECT * FROM USER WHERE first_name LIKE ? OR last_name LIKE ?', ['%' + searchBody + '%', '%' + searchBody + '%'], (err, rows) => {
+        connection.query('SELECT * FROM CRIMINAL WHERE fname LIKE ? OR lname LIKE ?', ['%' + searchBody + '%', '%' + searchBody + '%'], (err, rows) => {
             connection.release();
             if (!err) {
                 res.render('homePris', { rows });
@@ -56,14 +57,14 @@ exports.form = (req, res) => {
 }
 
 exports.create = (req, res) => {
-    const { first_name, last_name, email, phone, comments } = req.body;
+    const { fname, lname, sex, dob, crid, pid, arrested_on, current_status } = req.body;
 
     pool.getConnection((err, connection) => {
         if (err)
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('INSERT INTO USER SET first_name = ?, last_name = ? , email = ? , phone= ? ,comments = ?', [first_name, last_name, email, phone, comments], (err, rows) => {
+        connection.query('INSERT INTO CRIMINAL SET fname = ?, lname = ? , sex = ? , dob= ? ,crid = ?, prid =?, arrested_on=?, current_status=?', [fname, lname, sex, dob, crid, pid, arrested_on, current_status], (err, rows) => {
             connection.release();
             if (!err) {
                 res.render('addPris', { alert: "User added successfully!" });
@@ -82,7 +83,7 @@ exports.edit = (req, res) => {
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('SELECT * FROM USER WHERE id = ?', [req.params.id], (err, rows) => {
+        connection.query('SELECT * FROM CRIMINAL WHERE crid = ?', [req.params.id], (err, rows) => {
             connection.release();
             if (!err) {
                 res.render('editPris', { rows });
@@ -96,21 +97,21 @@ exports.edit = (req, res) => {
 }
 
 exports.update = (req, res) => {
-    const { first_name, last_name, email, phone, comments } = req.body;
+    const { fname, lname, sex, dob, crid, pid, arrested_on, current_status } = req.body;
 
     pool.getConnection((err, connection) => {
         if (err)
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('UPDATE USER SET first_name = ?, last_name=?, email = ? , phone= ? ,comments = ? WHERE id = ?', [first_name, last_name, email, phone, comments, req.params.id], (err, rows) => {
+        connection.query('UPDATE CRIMINAL SET fname = ?, lname=?, sex = ?, dob= ? , prid =?, arrested_on=?, current_status=? WHERE crid = ?', [fname, lname, sex, dob, pid, arrested_on, current_status, req.params.id], (err, rows) => {
             connection.release();
             if (!err) {
                 pool.getConnection((err, connection) => {
                     if (err)
                         throw err;
                     console.log('Connected to ID: ' + connection.threadId);
-                    connection.query('SELECT * FROM USER WHERE id = ?', [req.params.id], (err, rows) => {
+                    connection.query('SELECT * FROM CRIMINAL WHERE crid = ?', [req.params.id], (err, rows) => {
                         connection.release();
                         if (!err) {
                             res.render('editPris', { rows, alert: "Prisoner details updated successfully!" });
@@ -135,10 +136,10 @@ exports.delete = (req, res) => {
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('DELETE FROM USER WHERE id = ?', [req.params.id], (err, rows) => {
+        connection.query('DELETE FROM CRIMINAL WHERE crid = ?', [req.params.id], (err, rows) => {
             connection.release();
             if (!err) {
-                res.redirect('/');
+                res.redirect('/homePris');
                 console.log('Here');
             } else {
                 console.log(err);
@@ -153,8 +154,8 @@ exports.viewPris = (req, res) => {
         if (err)
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
-
-        connection.query('SELECT * FROM USER WHERE id = ?', [req.params.id], (err, rows) => {
+        // var x = req.params.id;
+        connection.query('SELECT * FROM CRIMINAL WHERE crid = ?; SELECT arrested_for FROM CRIMINAL_REASON WHERE crid = ?', [req.params.id, req.params.id], (err, rows, fields) => {
             connection.release();
             if (!err) {
                 res.render('viewPris', { rows });
@@ -162,7 +163,17 @@ exports.viewPris = (req, res) => {
             } else {
                 console.log(err);
             }
-            console.log(rows);
+            console.log('BC');
+            console.log(rows[0]);
+            console.log(rows[1]);
+            // console.log(RowDataPacket[0]);
         });
+        // connection.query('SELECT 1; SELECT 2', function (error, results, fields) {
+        //     if (error) throw error;
+        //     // `results` is an array with one element for every statement in the query:
+        //     console.log(results[0]); // [{1: 1}]
+        //     console.log(results[1]); // [{2: 2}]
+        // });
+
     });
 }

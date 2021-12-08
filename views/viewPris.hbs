@@ -5,34 +5,48 @@
     </ol>
 </nav>
 
-<div class="view-user p-5">
+<div class="view-user p-5" style="background-color:#0d0d0d; border-radius:20px; color:white;">
     {{#each rows}}
-    <div class="row mb-5">
+    {{!-- {{#each this}} --}}
+    {{this.fname}}
+    {{this.fname}}
+    {{this.arrested_for}}
+    {{!-- {{/each}} --}}
+    {{/each}}
+    {{!-- <div class="row mb-5">
         <div class="col text-center">
-            <h3>{{this.first_name}} {{this.last_name}}</h3>
+            <h3>{{this.fname}} {{this.lname}}</h3>
         </div>
-    </div>
+    </div> --}}
+
+
     <div class="row">
+        {{!-- {{#each this}} --}}
         <div class="col">
-            <table class="table">
+            <table class="table" style="color:grey;">
                 <thead>
                     <tr>
+                        <th scope="col">Criminal ID</th>
                         <th scope="col">First Name</th>
                         <th scope="col">Last Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Phone</th>
+                        <th scope="col">Arrested on</th>
+                        <th scope="col">Current status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">{{this.first_name}}</th>
-                        <td>{{this.last_name}}</td>
-                        <td>{{this.email}}</td>
-                        <td>{{this.phone}}</td>
+                        <th scope="row">{{crid}}</th>
+                        <td>{{arrested_for}}</td>
+                        <td>{{lname}}</td>
+                        <td>{{arrested_on}}</td>
+                        <td>{{current_status}}</td>
+
                     </tr>
                 </tbody>
             </table>
         </div>
+        {{!-- {{/each}} --}}
+        {{!-- {{#each this}} --}}
         <div class="row">
             <div class="col">
                 <b>Comments</b>
@@ -40,9 +54,14 @@
         </div>
         <div class="row">
             <div class="col">
-                {{this.comments}}
+                {{this.arrested_for}}
+
             </div>
         </div>
+        {{!-- {{/each}} --}}
     </div>
-    {{/each}}
+
+    {{!-- {{/each}} --}}
+
+
 </div>
