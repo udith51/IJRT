@@ -40,7 +40,7 @@ exports.find = (req, res) => {
         console.log('Connected to ID: ' + connection.threadId);
 
         let searchBody = req.body.search;
-        connection.query('SELECT * FROM CRIMINAL WHERE fname LIKE ? OR lname LIKE ?', ['%' + searchBody + '%', '%' + searchBody + '%'], (err, rows) => {
+        connection.query('SELECT * FROM POLICE WHERE fname LIKE ? OR lname LIKE ?', ['%' + searchBody + '%', '%' + searchBody + '%'], (err, rows) => {
             connection.release();
             if (!err) {
                 res.render('homePol', { rows });
@@ -51,20 +51,20 @@ exports.find = (req, res) => {
         });
     });
 }
-
+// 
 exports.form = (req, res) => {
     res.render('addPol');
 }
 
 exports.create = (req, res) => {
-    const { fname, lname, sex, dob, crid, pid, arrested_on, current_status } = req.body;
+    const { fname, lname, sex, dob, pid, sid, designation, phone } = req.body;
 
     pool.getConnection((err, connection) => {
         if (err)
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('INSERT INTO CRIMINAL SET fname = ?, lname = ? , sex = ? , dob= ? ,crid = ?, prid =?, arrested_on=?, current_status=?', [fname, lname, sex, dob, crid, pid, arrested_on, current_status], (err, rows) => {
+        connection.query('INSERT INTO `police` (`pid`, `sid`, `fname`, `lname`, `designation`, `sex`, `dob`, `phone`) VALUES (?,?,?,?,?,?,?,?);', [pid, sid, fname, lname, designation, sex, dob, phone], (err, rows) => {
             connection.release();
             if (!err) {
                 res.render('addPol', { alert: "Police Officer added successfully!" });
@@ -83,7 +83,7 @@ exports.edit = (req, res) => {
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('SELECT * FROM CRIMINAL WHERE crid = ?', [req.params.id], (err, rows) => {
+        connection.query('SELECT * FROM POLICE WHERE pid = ?', [req.params.id], (err, rows) => {
             connection.release();
             if (!err) {
                 res.render('editPol', { rows });
@@ -97,21 +97,21 @@ exports.edit = (req, res) => {
 }
 
 exports.update = (req, res) => {
-    const { fname, lname, sex, dob, crid, pid, arrested_on, current_status } = req.body;
+    const { fname, lname, sex, dob, pid, sid, designation, phone } = req.body;
 
     pool.getConnection((err, connection) => {
         if (err)
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('UPDATE CRIMINAL SET fname = ?, lname=?, sex = ?, dob= ? , prid =?, arrested_on=?, current_status=? WHERE crid = ?', [fname, lname, sex, dob, pid, arrested_on, current_status, req.params.id], (err, rows) => {
+        connection.query('UPDATE POLICE SET fname =?, lname=?, sex=?, dob=?, sid=?, designation=?, phone=? WHERE pid = ?', [fname, lname, sex, dob, sid, designation, phone, req.params.id], (err, rows) => {
             connection.release();
             if (!err) {
                 pool.getConnection((err, connection) => {
                     if (err)
                         throw err;
                     console.log('Connected to ID: ' + connection.threadId);
-                    connection.query('SELECT * FROM CRIMINAL WHERE crid = ?', [req.params.id], (err, rows) => {
+                    connection.query('SELECT * FROM POLICE WHERE pid = ?', [req.params.id], (err, rows) => {
                         connection.release();
                         if (!err) {
                             res.render('editPol', { rows, alert: "Police Officers details updated successfully!" });
@@ -136,7 +136,7 @@ exports.delete = (req, res) => {
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('DELETE FROM CRIMINAL WHERE crid = ?', [req.params.id], (err, rows) => {
+        connection.query('DELETE FROM POLICE WHERE pid = ?', [req.params.id], (err, rows) => {
             connection.release();
             if (!err) {
                 res.redirect('/homePol');
