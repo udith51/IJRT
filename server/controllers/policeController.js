@@ -10,11 +10,6 @@ const pool = mysql.createPool({
     multipleStatements: true
 });
 
-
-exports.first = (req, res) => {
-    res.render('first');
-}
-
 exports.view = (req, res) => {
     pool.getConnection((err, connection) => {
         if (err)

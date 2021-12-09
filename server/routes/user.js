@@ -3,8 +3,15 @@ const router = express.Router();
 const prisionerController = require('../controllers/prisionerController')
 const policeController = require('../controllers/policeController')
 const judgeController = require('../controllers/judgeController')
+const initialController = require('../controllers/initialController')
 
-// router.get('/', prisionerController.first);
+router.get('/', initialController.first);
+router.get('/jud/login', initialController.loginJ);
+router.get('/ccp/login', initialController.loginC);
+router.get('/pol/login', initialController.loginP);
+
+
+
 router.get('/homePris', prisionerController.view);
 router.post('/homePris', prisionerController.find);
 router.get('/addPris', prisionerController.form);
