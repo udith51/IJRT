@@ -57,14 +57,14 @@ exports.form = (req, res) => {
 }
 
 exports.create = (req, res) => {
-    const { fname, lname, sex, dob, crid, pid, arrested_on, current_status } = req.body;
+    const { fname, lname, sex, dob, crid, pid, arrested_on, current_status, arrested_for } = req.body;
 
     pool.getConnection((err, connection) => {
         if (err)
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('INSERT INTO CRIMINAL SET fname = ?, lname = ? , sex = ? , dob= ? ,crid = ?, prid =?, arrested_on=?, current_status=?', [fname, lname, sex, dob, crid, pid, arrested_on, current_status], (err, rows) => {
+        connection.query('INSERT INTO CRIMINAL SET fname = ?, lname = ? , sex = ? , dob= ? ,crid = ?, prid =?, arrested_on=?, current_status=?;INSERT CRIMINAL_REASON SET arrested_for=?, crid=?', [fname, lname, sex, dob, crid, pid, arrested_on, current_status, arrested_for, crid], (err, rows) => {
             connection.release();
             if (!err) {
                 res.render('addPris', { alert: "Prisioner added successfully!" });
@@ -97,7 +97,7 @@ exports.edit = (req, res) => {
 }
 
 exports.update = (req, res) => {
-    const { fname, lname, sex, dob, crid, pid, arrested_on, current_status } = req.body;
+    const { fname, lname, sex, dob, crid, pid, arrested_on, current_status, arrested_for } = req.body;
 
     pool.getConnection((err, connection) => {
         if (err)
