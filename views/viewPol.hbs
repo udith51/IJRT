@@ -30,13 +30,23 @@
     </nav>
 
     <div class="view-user p-5" style="background-color:#0d0d0d; border-radius:20px; color:white;">
+        <div>Name | Designation | Phone No.</div>
         {{#each rows}}
         {{#each this}}
         {{this.fname}}
-        {{this.lname}}
-        <br>
-        {{this.arrested_for}}
-
+        {{this.lname}} |
+        {{!-- {{this.pid}} |
+        {{this.sid}} | --}}
+        {{this.designation}} |
+        {{this.phone}}
+        {{/each}}
+        {{/each}}
+        <div><br><br>Station posted in | City | State</div>
+        {{#each rows}}
+        {{#each this}}
+        {{this.name}} |
+        {{this.city}} |
+        {{this.state}}
         {{/each}}
         {{/each}}
         {{!-- <div class="row mb-5">

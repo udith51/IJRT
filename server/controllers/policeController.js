@@ -150,7 +150,7 @@ exports.viewPol = (req, res) => {
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
         // var x = req.params.id;
-        connection.query('SELECT * FROM CRIMINAL WHERE crid = ?; SELECT arrested_for FROM CRIMINAL_REASON WHERE crid = ?', [req.params.id, req.params.id], (err, rows, fields) => {
+        connection.query('SELECT * FROM POLICE WHERE pid = ?;SELECT * from POLICE_STATION WHERE pid = ?', [req.params.id, req.params.id], (err, rows, fields) => {
             connection.release();
             if (!err) {
                 res.render('viewPol', { rows });

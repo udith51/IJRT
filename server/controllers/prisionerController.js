@@ -59,7 +59,7 @@ exports.create = (req, res) => {
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('INSERT INTO CRIMINAL SET fname = ?, lname = ? , sex = ? , dob= ? ,crid = ?, prid =?, arrested_on=?, current_status="Judgement Pending";INSERT CRIMINAL_REASON SET arrested_for=?, crid=?', [fname, lname, sex, dob, crid, prid, arrested_on, current_status, arrested_for, crid], (err, rows) => {
+        connection.query('INSERT INTO CRIMINAL SET fname = ?, lname = ? , sex = ? , dob= ? ,crid = ?, prid =?, arrested_on=?, current_status="Judgement Pending";INSERT CRIMINAL_REASON SET arrested_for=?, crid=?', [fname, lname, sex, dob, crid, prid, arrested_on, arrested_for, crid], (err, rows) => {
             connection.release();
             if (!err) {
                 res.render('addPris', { alert: "Prisioner added successfully!" });
@@ -154,21 +154,11 @@ exports.viewPris = (req, res) => {
             connection.release();
             if (!err) {
                 res.render('viewPris', { rows });
-                console.log('Here');
+                // console.log(query);
             } else {
                 console.log(err);
             }
-            console.log('BC');
-            console.log(rows[0]);
-            console.log(rows[1]);
-            // console.log(RowDataPacket[0]);
         });
-        // connection.query('SELECT 1; SELECT 2', function (error, results, fields) {
-        //     if (error) throw error;
-        //     // `results` is an array with one element for every statement in the query:
-        //     console.log(results[0]); // [{1: 1}]
-        //     console.log(results[1]); // [{2: 2}]
-        // });
 
     });
 }

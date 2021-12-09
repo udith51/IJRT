@@ -139,12 +139,6 @@ exports.viewPris = (req, res) => {
             console.log(rows[1]);
             // console.log(RowDataPacket[0]);
         });
-        // connection.query('SELECT 1; SELECT 2', function (error, results, fields) {
-        //     if (error) throw error;
-        //     // `results` is an array with one element for every statement in the query:
-        //     console.log(results[0]); // [{1: 1}]
-        //     console.log(results[1]); // [{2: 2}]
-        // });
 
     });
 }

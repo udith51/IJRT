@@ -30,11 +30,13 @@
     </nav>
 
     <div class="view-user p-5" style="background-color:#0d0d0d; border-radius:20px; color:white;">
-        <div>Name:</div>
+        <div>Name | Current Status | Arrested On</div>
         {{#each rows}}
         {{#each this}}
         {{this.fname}}
-        {{this.lname}}
+        {{this.lname}} |
+        {{this.current_status}} |
+        {{this.arrested_on}}
         {{/each}}
         {{/each}}
 
@@ -47,6 +49,15 @@
         {{this.arrested_for}}
         {{/each}}
         {{/each}}
+
+        {{!-- <div> --}}
+            {{!-- Prison Details:
+        </div>
+        {{#each rows}}
+        {{#each this}}
+        {{this.name}}
+        {{/each}}
+        {{/each}} --}}
         {{!-- <div class="row mb-5">
             <div class="col text-center">
                 <h3>{{this.fname}} {{this.lname}}</h3>

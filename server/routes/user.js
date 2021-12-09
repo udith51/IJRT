@@ -5,12 +5,12 @@ const policeController = require('../controllers/policeController')
 const judgeController = require('../controllers/judgeController')
 const initialController = require('../controllers/initialController')
 
+
+
 router.get('/', initialController.first);
 router.get('/jud/login', initialController.loginJ);
 router.get('/ccp/login', initialController.loginC);
 router.get('/pol/login', initialController.loginP);
-
-
 
 router.get('/homePris', prisionerController.view);
 router.post('/homePris', prisionerController.find);
@@ -21,14 +21,13 @@ router.post('/editPris/:id', prisionerController.update);
 router.get('/viewPris/:id', prisionerController.viewPris);
 router.get('/pr/:id', prisionerController.delete);
 
-// // router.get('/', policeController.first);
 router.get('/homePol', policeController.view);
 router.post('/homePol', policeController.find);
 router.get('/addPol', policeController.form);
 router.post('/addPol', policeController.create);
 router.get('/editPol/:id', policeController.edit);
 router.post('/editPol/:id', policeController.update);
-// router.get('/viewPol/:id', policeController.viewPris);
+router.get('/viewPol/:id', policeController.viewPol);
 router.get('/po/:id', policeController.delete);
 module.exports = router;
 
@@ -36,5 +35,5 @@ router.get('/homeJud', judgeController.view);
 router.post('/homeJud', judgeController.find);
 router.get('/editJud/:id', judgeController.edit);
 router.post('/editJud/:id', judgeController.update);
-// router.get('/viewPris/:id', judgeController.viewPris);
+router.get('/viewPris/:id', judgeController.viewPris);
 router.get('/jd/:id', judgeController.delete);
