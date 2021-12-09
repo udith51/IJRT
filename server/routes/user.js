@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const prisionerController = require('../controllers/prisionerController')
 const policeController = require('../controllers/policeController')
+const judgeController = require('../controllers/judgeController')
 
 // router.get('/', prisionerController.first);
 router.get('/homePris', prisionerController.view);
@@ -23,3 +24,12 @@ router.post('/editPol/:id', policeController.update);
 // router.get('/viewPol/:id', policeController.viewPris);
 router.get('/po/:id', policeController.delete);
 module.exports = router;
+
+router.get('/homePris', prisionerController.view);
+router.post('/homePris', prisionerController.find);
+router.get('/addPris', prisionerController.form);
+router.post('/addPris', prisionerController.create);
+router.get('/editPris/:id', prisionerController.edit);
+router.post('/editPris/:id', prisionerController.update);
+router.get('/viewPris/:id', prisionerController.viewPris);
+router.get('/pr/:id', prisionerController.delete);
