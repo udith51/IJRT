@@ -25,11 +25,9 @@ router.post('/editPol/:id', policeController.update);
 router.get('/po/:id', policeController.delete);
 module.exports = router;
 
-router.get('/homePris', prisionerController.view);
-router.post('/homePris', prisionerController.find);
-router.get('/addPris', prisionerController.form);
-router.post('/addPris', prisionerController.create);
-router.get('/editPris/:id', prisionerController.edit);
-router.post('/editPris/:id', prisionerController.update);
-router.get('/viewPris/:id', prisionerController.viewPris);
-router.get('/pr/:id', prisionerController.delete);
+router.get('/homeJud', judgeController.view);
+router.post('/homeJud', judgeController.find);
+router.get('/editJud/:id', judgeController.edit);
+router.post('/editJud/:id', judgeController.update);
+// router.get('/viewPris/:id', judgeController.viewPris);
+router.get('/jd/:id', judgeController.delete);

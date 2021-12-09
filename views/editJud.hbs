@@ -12,7 +12,7 @@
                 </li>
             </ul>
 
-            <form class="d-flex" method="POST" action="/homePris" novalidate>
+            <form class="d-flex" method="POST" action="/homeJud" novalidate>
                 <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search">
                 <button class="btn btn-outline-light" type="submit">Search</button>
             </form>
@@ -24,17 +24,20 @@
 <div class="container pt-5 pb-5">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/homePris">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">New User</li>
+            <li class="breadcrumb-item"><a href="/homeJud">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit User</li>
         </ol>
     </nav>
+
     {{#if alert}}
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{alert}}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {{/if}}
-    <form class="row g-3 needs-validation" method="POST" action="/addPris" novalidate>
+
+    {{#each rows}}
+    <form class="row g-3 needs-validation" method="POST" action="/editJud/{{this.crid}}" novalidate>
         <div class="col-6">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingInput" value="{{this.fname}}"
@@ -73,17 +76,11 @@
         <div class="col-6">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingInput" value="{{this.prid}}" placeholder="Phone"
-                    name="prid">
-                <label for="floatingInput">PRID</label>
+                    name="pid">
+                <label for="floatingInput">PID</label>
             </div>
         </div>
-        <div class="col-6">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" value="{{this.arrested_for}}"
-                    placeholder="arrested for" name="arrested_for">
-                <label for="floatingInput">Arrested for</label>
-            </div>
-        </div>
+
         <div class="col-6">
             <div class="form-floating mb-3">
                 <input type="email" class="form-control" id="floatingInput" value="{{this.arrested_on}}"
@@ -91,10 +88,18 @@
                 <label for="floatingInput">Arrested On</label>
             </div>
         </div>
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" value="{{this.current_status}}"
+                    placeholder="email@email.com" name="current_status">
+                <label for="floatingInput">Current status</label>
+            </div>
+        </div>
         <div class="col-12 d-grid">
             <button class="btn btn-primary" type="submit">Submit</button>
         </div>
     </form>
+    {{/each}}
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

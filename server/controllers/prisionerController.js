@@ -57,14 +57,14 @@ exports.form = (req, res) => {
 }
 
 exports.create = (req, res) => {
-    const { fname, lname, sex, dob, crid, pid, arrested_on, current_status, arrested_for } = req.body;
+    const { fname, lname, sex, dob, crid, prid, arrested_on, current_status, arrested_for } = req.body;
 
     pool.getConnection((err, connection) => {
         if (err)
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('INSERT INTO CRIMINAL SET fname = ?, lname = ? , sex = ? , dob= ? ,crid = ?, prid =?, arrested_on=?, current_status=?;INSERT CRIMINAL_REASON SET arrested_for=?, crid=?', [fname, lname, sex, dob, crid, pid, arrested_on, current_status, arrested_for, crid], (err, rows) => {
+        connection.query('INSERT INTO CRIMINAL SET fname = ?, lname = ? , sex = ? , dob= ? ,crid = ?, prid =?, arrested_on=?, current_status="Judgement Pending";INSERT CRIMINAL_REASON SET arrested_for=?, crid=?', [fname, lname, sex, dob, crid, prid, arrested_on, current_status, arrested_for, crid], (err, rows) => {
             connection.release();
             if (!err) {
                 res.render('addPris', { alert: "Prisioner added successfully!" });
@@ -97,14 +97,14 @@ exports.edit = (req, res) => {
 }
 
 exports.update = (req, res) => {
-    const { fname, lname, sex, dob, crid, pid, arrested_on, current_status, arrested_for } = req.body;
+    const { fname, lname, sex, dob, crid, prid, arrested_on } = req.body;
 
     pool.getConnection((err, connection) => {
         if (err)
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('UPDATE CRIMINAL SET fname = ?, lname=?, sex = ?, dob= ? , prid =?, arrested_on=?, current_status=? WHERE crid = ?', [fname, lname, sex, dob, pid, arrested_on, current_status, req.params.id], (err, rows) => {
+        connection.query('UPDATE CRIMINAL SET fname = ?, lname=?, sex = ?, dob= ? , prid =?, arrested_on=?  WHERE crid = ?', [fname, lname, sex, dob, prid, arrested_on, req.params.id], (err, rows) => {
             connection.release();
             if (!err) {
                 pool.getConnection((err, connection) => {
