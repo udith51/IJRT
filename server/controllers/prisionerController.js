@@ -104,7 +104,7 @@ exports.update = (req, res) => {
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('UPDATE CRIMINAL SET fname = ?, lname=?, sex = ?, dob= ? , prid =?, arrested_on=?, current_status=? WHERE crid = ?', [fname, lname, sex, dob, pid, arrested_on, current_status, req.params.id], (err, rows) => {
+        connection.query('UPDATE CRIMINAL SET fname = ?, lname=?, sex = ?, dob= ? , prid =?, arrested_on=?, current_status=? WHERE crid = ?; UPDATE CRIMINAL_REASON SET ARRESTED_FOR =? WHERE CRID =?', [fname, lname, sex, dob, pid, arrested_on, current_status, arrested_for, req.params.id], (err, rows) => {
             connection.release();
             if (!err) {
                 pool.getConnection((err, connection) => {
