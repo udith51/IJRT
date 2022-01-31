@@ -27,13 +27,13 @@ router.get('/addPol', policeController.form);
 router.post('/addPol', policeController.create);
 router.get('/editPol/:id', policeController.edit);
 router.post('/editPol/:id', policeController.update);
-router.get('/viewPol/:id', policeController.viewPol);
+router.get('/viewPol/:sid/:pid', policeController.viewPol);
 router.get('/po/:id', policeController.delete);
-module.exports = router;
 
 router.get('/homeJud', judgeController.view);
 router.post('/homeJud', judgeController.find);
 router.get('/editJud/:id', judgeController.edit);
 router.post('/editJud/:id', judgeController.update);
-router.get('/viewPris/:id', judgeController.viewPris);
+router.get('/viewJud/:crid/:crimid', judgeController.viewPris);
 router.get('/jd/:id', judgeController.delete);
+module.exports = router;

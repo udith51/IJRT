@@ -149,8 +149,8 @@ exports.viewPol = (req, res) => {
         if (err)
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
-        // var x = req.params.id;
-        connection.query('SELECT * FROM POLICE WHERE pid = ?;SELECT * from POLICE_STATION WHERE pid = ?', [req.params.id, req.params.id], (err, rows, fields) => {
+        const { sid, pid } = req.params;
+        connection.query('SELECT * FROM POLICE WHERE pid = ?;SELECT * from POLICE_STATION WHERE sid = ?', [pid, sid], (err, rows, fields) => {
             connection.release();
             if (!err) {
                 res.render('viewPol', { rows });

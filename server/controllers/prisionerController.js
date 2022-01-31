@@ -131,7 +131,7 @@ exports.delete = (req, res) => {
             throw err;
         console.log('Connected to ID: ' + connection.threadId);
 
-        connection.query('DELETE FROM CRIMINAL WHERE crid = ?', [req.params.id], (err, rows) => {
+        connection.query('DELETE FROM CRIMINAL WHERE crid = ?;DELETE FROM CRIMINAL_REASON WHERE crid = ?', [req.params.id, req.params.id], (err, rows) => {
             connection.release();
             if (!err) {
                 res.redirect('/homePris');

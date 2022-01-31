@@ -1,0 +1,119 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Criminal Management System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+            </ul>
+
+            <form class="d-flex" method="POST" action="/homePris" novalidate>
+                <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container pt-5 pb-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/homePris">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">View User</li>
+        </ol>
+    </nav>
+
+    <div class="view-user p-5" style="background-color:#0d0d0d; border-radius:20px; color:white;">
+        <div>Name | Current Status | Arrested On</div>
+        {{#each rows}}
+        {{#each this}}
+        {{this.fname}}
+        {{this.lname}} |
+        {{this.current_status}} |
+        {{this.arrested_on}}
+        {{/each}}
+        {{/each}}
+
+        <div>
+            <br>
+            Crime:
+        </div>
+        {{#each rows}}
+        {{#each this}}
+        {{this.arrested_for}}
+        {{/each}}
+        {{/each}}
+
+        {{!-- <div> --}}
+            {{!-- Prison Details:
+        </div>
+        {{#each rows}}
+        {{#each this}}
+        {{this.name}}
+        {{/each}}
+        {{/each}} --}}
+        {{!-- <div class="row mb-5">
+            <div class="col text-center">
+                <h3>{{this.fname}} {{this.lname}}</h3>
+            </div>
+        </div> --}}
+
+        {{!-- {{#each rows}}
+        <div class="row">
+
+            <div class="col">
+                <table class="table" style="color:grey;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Criminal ID</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Arrested on</th>
+                            <th scope="col">Current status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each this}}
+                        <tr>
+                            <th scope="row">{{crid}}</th>
+                            <td>{{fname}}</td>
+                            <td>{{lname}}</td>
+                            <td>{{arrested_on}}</td>
+                            <td>{{current_status}}</td>
+
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <b>Comments</b>
+                </div>
+            </div>
+            {{#each this}}
+            <div class="row">
+                <div class="col">
+                    {{arrested_for}}
+
+                </div>
+            </div>
+            {{/each}}
+        </div>
+
+        {{/each}} --}}
+
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
