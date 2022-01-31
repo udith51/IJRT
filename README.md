@@ -31,7 +31,7 @@ At first, the Chief commissioner can use it to get all officers working at a sta
 -	To facilitate interaction and sharing of information among police departments, districts, state/headquarters and other police agencies.
 -	Building security and monitoring control so as to ensure only authorized personnel have access to the criminal information.
 
-### Tech Stack
+### ⭐ Tech Stack
 - HTML
 - CSS
 - JS
@@ -41,7 +41,7 @@ At first, the Chief commissioner can use it to get all officers working at a sta
 - HBS
 - MySQL
 
-## Our Team💝
+### ⭐ Our Team
 
 <a href="https://github.com/udith51/IJRT/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=udith51/IJRT" />
